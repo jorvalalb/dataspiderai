@@ -1,37 +1,51 @@
 """
-logger.py — Package-wide logger factory
-=======================================
+logger.py — Configure package-wide logging to console and file.
+================================================================
 
 """
 
-from __future__ import annotations
-
 import logging
-from typing import Final
+from logging.handlers import RotatingFileHandler
+import os
 
-# ═════════════════════════ constants ════════════════════════════════════════
-_LOGGER_NAME:   Final[str] = "dataspiderai"
-_LOG_LEVEL:     Final[int] = logging.INFO
-_FMT:           Final[str] = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+_LOGGER_NAME = "dataspiderai"
+_LOG_FILENAME = "dataspiderai.log"
+_MAX_BYTES = 5 * 1024 * 1024
+_BACKUP_COUNT = 3
+_LEVEL = logging.INFO
+_FORMAT = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
 
 
-# ═════════════════════════ factory helper ═══════════════════════════════════
 def setup_logger() -> logging.Logger:
     """
-    Return a ``logging.Logger`` pre-configured for console output.
+    Configure and return the "dataspiderai" logger.
 
-    The logger is created only once; repeated calls simply fetch the existing
-    instance so that every module in the package shares the same handlers.
+    - Console handler: INFO level
+    - File handler: INFO level, rotating when file exceeds 5 MB,
+      keeping up to 3 backups.
     """
     logger = logging.getLogger(_LOGGER_NAME)
-    if logger.handlers:            # already initialised → early exit
+    if logger.hasHandlers():
         return logger
 
-    logger.setLevel(_LOG_LEVEL)
+    logger.setLevel(_LEVEL)
 
-    console_handler = logging.StreamHandler()
-    console_handler.setLevel(_LOG_LEVEL)
-    console_handler.setFormatter(logging.Formatter(_FMT))
+    # ─── Console handler ─────────────────────────────────────────────
+    ch = logging.StreamHandler()
+    ch.setLevel(_LEVEL)
+    ch.setFormatter(logging.Formatter(_FORMAT))
+    logger.addHandler(ch)
 
-    logger.addHandler(console_handler)
+    # ─── File handler ────────────────────────────────────────────────
+    log_path = os.path.join(os.getcwd(), _LOG_FILENAME)
+    fh = RotatingFileHandler(
+        filename=log_path,
+        maxBytes=_MAX_BYTES,
+        backupCount=_BACKUP_COUNT,
+        encoding="utf-8",
+    )
+    fh.setLevel(_LEVEL)
+    fh.setFormatter(logging.Formatter(_FORMAT))
+    logger.addHandler(fh)
+
     return logger

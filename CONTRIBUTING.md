@@ -1,81 +1,99 @@
-# Contributing
+# CONTRIBUTORS
 
-Contributions are welcome, and they are greatly appreciated! Every little bit
-helps, and credit will always be given.
+Thank you for your interest in contributing to **dataspiderai**! This document gathers all the information you need to get started and guides you through our contribution process.
+
+## Getting Started
+
+1. **Clone the repository**  
+   ```bash
+   git clone https://github.com/jorgevalverdealbe/dataspiderai.git
+   cd dataspiderai
+   ```
+
+2. **Create and activate a development environment**  
+   We recommend using Conda for isolation:
+   ```bash
+   conda create -n dataspiderai python=3.12
+   conda activate dataspiderai
+   ```
+
+3. **Install dependencies and the package in editable mode**  
+   We use `uv` for project management (not Poetry):
+   ```bash
+   pip install uv
+   uv install
+   uv develop
+   ```
+
+4. **Create a feature branch**  
+   ```bash
+   git checkout -b feature/your-feature-name
+   ```
+
+5. **Make your changes**  
+   - Follow existing style and patterns.  
+   - Keep your scope narrow and focused.  
+   - Add tests for new functionality or bug fixes.  
+   - Update documentation (`README.md`, docstrings, CLI help, etc.) as needed.
+
+6. **Run the test suite and linters**  
+   ```bash
+   uv test
+   uv lint
+   ```
+
+7. **Commit and push**  
+   ```bash
+   git add .
+   git commit -m "Brief description of your change"
+   git push origin feature/your-feature-name
+   ```
+
+8. **Open a Pull Request** on GitHub  
+   - Link to any relevant issues.  
+   - Describe what you’ve changed and why.  
+   - Ensure CI passes and that you’ve updated docs/tests.
+
+---
 
 ## Types of Contributions
 
-### Report Bugs
+### Report a Bug
+- Include your OS, Python version, and reproduction steps.  
+- Provide error messages or stack traces.
 
-If you are reporting a bug, please include:
+### Fix a Bug
+- Look for issues labeled `bug` or `help wanted`.  
+- Include or update tests to cover the bug scenario.
 
-* Your operating system name and version.
-* Any details about your local setup that might be helpful in troubleshooting.
-* Detailed steps to reproduce the bug.
+### Implement a Feature
+- Review issues labeled `enhancement` or `help wanted`.  
+- Propose your design first if it’s a large change.
 
-### Fix Bugs
-
-Look through the GitHub issues for bugs. Anything tagged with "bug" and "help
-wanted" is open to whoever wants to implement it.
-
-### Implement Features
-
-Look through the GitHub issues for features. Anything tagged with "enhancement"
-and "help wanted" is open to whoever wants to implement it.
-
-### Write Documentation
-
-You can never have enough documentation! Please feel free to contribute to any
-part of the documentation, such as the official docs, docstrings, or even
-on the web in blog posts, articles, and such.
+### Improve Documentation
+- Clarify existing docs or add new examples.  
+- Update inline docstrings and CLI help messages.
 
 ### Submit Feedback
+- Suggest improvements or use-case ideas.  
+- Keep proposals focused and actionable.
 
-If you are proposing a feature:
-
-* Explain in detail how it would work.
-* Keep the scope as narrow as possible, to make it easier to implement.
-* Remember that this is a volunteer-driven project, and that contributions
-  are welcome :)
-
-## Get Started!
-
-Ready to contribute? Here's how to set up `dataspiderai` for local development.
-
-1. Download a copy of `dataspiderai` locally.
-
-2. Create and activate a conda environment for `dataspiderai`:
-
-    ```console
-    $ conda create -n dataspiderai python=3.12
-    $ conda activate dataspiderai
-    ```
-
-3. Install `dataspiderai` using `poetry`:
-
-    ```console
-    $ poetry install
-    ```
-
-4. Use `git` (or similar) to create a branch for local development and make your changes:
-
-    ```console
-    $ git checkout -b name-of-your-bugfix-or-feature
-    ```
-
-5. When you're done making changes, check that your changes conform to any code formatting requirements and pass any tests.
-
-6. Commit your changes and open a pull request.
+---
 
 ## Pull Request Guidelines
 
-Before you submit a pull request, check that it meets these guidelines:
+1. Keep your PR up to date with `main`.  
+2. Include tests for any new behavior.  
+3. Update documentation where applicable.  
+4. Keep commits atomic and descriptive.  
+5. Reference the issue number in your PR title or description.
 
-1. The pull request should include additional tests if appropriate.
-2. If the pull request adds functionality, the docs should be updated.
-3. The pull request should work for all currently supported operating systems and versions of Python.
+---
 
 ## Code of Conduct
 
-Please note that the `dataspiderai` project is released with a
-Code of Conduct. By contributing to this project you agree to abide by its terms.
+This project follows the [Contributor Covenant Code of Conduct](CODE_OF_CONDUCT.md). By participating, you agree to abide by its terms.
+
+---
+
+Thank you for helping make **dataspiderai** even better! 🚀  
