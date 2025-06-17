@@ -1,38 +1,65 @@
+[build-system]
+requires = ["setuptools>=64.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
 [project]
 name = "dataspiderai"
-version = "0.1.0"
+dynamic = ["version"]
 description = "A package for scraping economic data with multi-agents and AI."
-authors = [{ name = "Jorge Valverde Albelda" }]
-license = { text = "MIT" }
 readme = "README.md"
 requires-python = ">=3.12"
-
+license = "MIT"
+authors = [
+    {name = "Jorge Valverde Albelda", email = ""}
+]
 dependencies = [
-  "python-dotenv>=1.0.0",
-  "langchain-openai>=0.0.1",
-  "playwright>=1.35.0",
-  "beautifulsoup4>=4.12.0",
-  "pandas>=2.0.0",
-  "pyarrow>=12.0.0",
-  "tenacity>=8.2.0",
-  "browser-use>=0.1.0"
+    "python-dotenv>=1.0.0",
+    "langchain-openai>=0.0.1",
+    "playwright>=1.35.0",
+    "beautifulsoup4>=4.12.0",
+    "pandas>=2.0.0",
+    "pyarrow>=12.0.0",
+    "tenacity>=8.2.0",
+    "browser-use>=0.1.0"
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
 ]
 
 [project.optional-dependencies]
 test = [
-  "pytest>=7.0.0",
-  "pytest-asyncio>=0.20.0",
-  "pytest-mock>=3.10.0"
+    "pytest>=7.0.0",
+    "pytest-asyncio>=0.20.0",
+    "pytest-mock>=3.10.0"
 ]
-
-[tool.pytest.ini_options]
-minversion = "7.0"
-addopts = "-ra -q"
-testpaths = ["tests"]
+dev = [
+    "flake8",
+    "black",
+    "mypy",
+    "pre-commit",
+    "pytest-cov",
+]
 
 [project.scripts]
 dataspiderai = "dataspiderai.cli:main"
 
-[build-system]
-requires = ["hatchling>=1.24"]
-build-backend = "hatchling.build"
+[tool.setuptools]
+packages = {find = {where = ["."], include = ["dataspiderai*"]}}
+
+[tool.setuptools.package-data]
+dataspiderai = ["js_snippet/*.js"]
+
+[tool.setuptools.dynamic]
+version = {attr = "dataspiderai.__version__.__version__"}
+
+[tool.uv.sources]
+dataspiderai = { workspace = true }
+
+[dependency-groups]
+dev = [
+    "dataspiderai",
+]
