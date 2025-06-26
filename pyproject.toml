@@ -10,7 +10,7 @@ readme = "README.md"
 requires-python = ">=3.12"
 license = "MIT"
 authors = [
-    {name = "Jorge Valverde Albelda", email = ""}
+    {name = "Jorge Valverde Albelda", email = "jorge.valverdealbe@plexus.tech"}
 ]
 dependencies = [
     "python-dotenv>=1.0.0",
