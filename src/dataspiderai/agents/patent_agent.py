@@ -61,14 +61,13 @@ async def fetch_patents_html(
         if start_date and end_date:
             logger.info("[Patents] Applying filing-date filter %s → %s",
                         start_date, end_date)
-            await page.click("span#compactQuery")                         # open drawer
-            await page.click("dropdown-menu[label='Date'] iron-icon")     # expand “Date”
-            await page.click("div.item:has-text('Filing')")               # choose “Filing”
+            await page.click("span#compactQuery")
+            await page.click("dropdown-menu[label='Date'] iron-icon")
+            await page.click("div.item:has-text('Filing')")
             await page.fill("input#after",  start_date)
             await page.fill("input#before", end_date)
-            await page.press("input#before", "Enter")                     # confirm
+            await page.press("input#before", "Enter")
 
-            # wait for the counter to refresh
             try:
                 await page.wait_for_selector("div#count", timeout=60_000)
             except PWTimeout:
@@ -101,7 +100,6 @@ async def extract_patent_count(html: str) -> str:
     raw = await extract_with_llm(snippet, prompt)
     text = raw.strip()
 
-    # strip fenced blocks if the LLM returned any
     fence_match = re.search(r"```(?:\w+)?\s*([\s\S]*?)```", text)
     if fence_match:
         text = fence_match.group(1).strip()
@@ -128,12 +126,15 @@ async def scrape_patents(
     html = await fetch_patents_html(query, start_date, end_date, engine)
     phrase = await extract_patent_count(html)
 
-    # best-effort conversion to integer (remove separators & spaces)
     num_match = re.search(r"[\d\.,]+", phrase.replace(" ", ""))
     count_int = (
         int(num_match.group(0).replace(".", "").replace(",", ""))
         if num_match else None
     )
+
+    if not count_int:
+        phrase = "No results found"
+        count_int = 0
 
     logger.info("[Patents] %s → %s", query, phrase)
     return {
