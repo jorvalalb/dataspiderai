@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import argparse
 import asyncio
+import os
 import re
 import sys
 import textwrap
@@ -134,6 +135,12 @@ def _build_parser() -> argparse.ArgumentParser:
         description="Scrape Finviz & Google-Patents datasets via AI agents.",
         formatter_class=argparse.RawTextHelpFormatter,
     )
+    # Output format
+    p.add_argument("--output", "-o",
+                   choices=["csv", "parquet", "json"],
+                   default="csv",
+                   help="Output format for saved datasets (default: csv).")
+
     # Patents (exclusive)
     p.add_argument("--patents", nargs="+", metavar="ARG",
                    help='Query in quotes; optionally add START END (YYYY-MM-DD).')
@@ -191,6 +198,9 @@ async def _run_patents(
 
 # ═════════════════════════ pipeline runner ════════════════════════
 async def run_pipeline(args: argparse.Namespace) -> None:
+    # make output format available to storage
+    os.environ["DATASPIDERAI_OUTPUT_FORMAT"] = args.output
+
     # ---------- PATENTS (exclusive) ----------
     if args.patents is not None:
         if len(args.patents) not in (1, 3):

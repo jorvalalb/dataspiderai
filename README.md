@@ -1,58 +1,61 @@
-# 🚀📈 **dataspiderai – AI-assisted Financial & Patent Web Scraper**
+# 🚀📈 **dataspiderai – AI-assisted Financial Web Scraper**
 
 <div align="center">
 
-[![GitHub Stars](https://img.shields.io/github/stars/jorvalalb/dataspiderai?style=social)](https://github.com/jorvalalb/dataspiderai/stargazers)
-[![GitHub Forks](https://img.shields.io/github/forks/jorvalalb/dataspiderai?style=social)](https://github.com/jorvalalb/dataspiderai/forks)
+[![GitHub Stars](https://img.shields.io/github/stars/jorvalalb/dataspiderai?style=social)](https://github.com/jorvalalb/dataspiderai/stargazers)  
+[![GitHub Forks](https://img.shields.io/github/forks/jorvalalb/dataspiderai?style=social)](https://github.com/jorvalalb/dataspiderai/forks)  
 
-[![PyPI version](https://badge.fury.io/py/dataspiderai.svg)](https://pypi.org/project/dataspiderai/)
-[![Python Versions](https://img.shields.io/pypi/pyversions/dataspiderai)](https://pypi.org/project/dataspiderai/)
-[![Downloads](https://static.pepy.tech/badge/dataspiderai/month)](https://pepy.tech/project/dataspiderai)
+[![PyPI version](https://badge.fury.io/py/dataspiderai.svg)](https://pypi.org/project/dataspiderai/)  
+[![Python Versions](https://img.shields.io/pypi/pyversions/dataspiderai)](https://pypi.org/project/dataspiderai/)  
+[![Downloads](https://static.pepy.tech/badge/dataspiderai/month)](https://pepy.tech/project/dataspiderai)  
 
-[![License](https://img.shields.io/github/license/jorvalalb/dataspiderai)](LICENSE)
-[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+[![License](https://img.shields.io/github/license/jorvalalb/dataspiderai)](LICENSE)  
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)  
 [![Security: bandit](https://img.shields.io/badge/security-bandit-yellow.svg)](https://github.com/PyCQA/bandit)
 
 </div>
 
-**dataspiderai** is an *async*, multi-agent toolkit that combines **Playwright** automation with **GPT-4o** post-processing to scrape:
+**dataspiderai** is an *async*, multi-agent toolkit that fuses **Playwright** browser automation with **GPT-4o** prompts to turn complex web UIs into clean, timestamped datasets. Its primary focus is:
 
-- Comprehensive **Finviz** datasets (fundamentals, ownership, ETF holdings, statements, news…)
-- **Google Patents** hit counts with optional filing-date filters
+- **Finviz** scraping: snapshot ratios, insider trades, institutional ownership, ETF widgets, financial statements, news feeds.
+- **Google Patents** Patent counts from Google Patents via a single flag.
 
-Open-source, headless-by-default, and fully incremental — every dataset is saved the moment it is scraped so no work is lost.
+Everything is saved _incrementally_—as soon as a section is scraped, it’s flushed to disk so you never lose progress.
 
-[**✨ Latest version: v1.0.0**](CHANGELOG.md) – now with one-flag patent searching, live console output for company profiles, and 200+ screener filter slugs.
+[**✨ Latest version: v1.0.0**](CHANGELOG.md) — now with `--output` support (csv, parquet, json), contextual help, and 200+ screener filters.
 
 ---
 
 ## 🧐 Why dataspiderai?
 
-| #   | Reason                   | Detail                                                                 |
-|-----|--------------------------|------------------------------------------------------------------------|
-| **1** | **Agentic Architecture**    | *Physical* Playwright agents click & scroll; *LLM* agents convert raw HTML to JSON. |
-| **2** | **Finance-First**           | Purpose-built for Finviz: snapshot ratios, insider trades, institutional ownership, YoY statements, ETF widgets. |
-| **3** | **Patent Counter**          | One-liner `--patents "query" [start end]` returns exact Google Patents hit phrase in ~30s. |
-| **4** | **Incremental Saves**       | Each section flushes to `data/<TICKER>/…csv` instantly — resilient to crashes. |
-| **5** | **Ultra-Flexible Screener** | Iterate any page range, combine 200+ filter slugs, and choose exactly which datasets to fetch. |
-| **6** | **Zero Server-Side Fee**    | Runs locally; you only need an `OPENAI_API_KEY`.                       |
-| **7** | **Cross-Platform**          | Tested on Linux, Windows & macOS (Python ≥ 3.10).                      |
-| **8** | **Verbose Logging**         | One-line log per action; warnings when a table is missing, never crashes the whole run. |
+| #    | Reason                      | Detail                                                                 |
+|------|-----------------------------|------------------------------------------------------------------------|
+| **1** | **Agentic Architecture**      | *Physical* Playwright agents click & scroll; *LLM* agents convert HTML → JSON. |
+| **2** | **Finance-First**             | Built for Finviz: snapshot, insiders, ownership, statements, ETFs, news. |
+| **3** | **Incremental Saves**         | Each section writes immediately to `data/<TICKER>/…` — crash-resilient.  |
+| **4** | **Ultra-Flexible Screener**   | Sweep any pages, combine 200+ filter slugs, pick exactly the datasets you want. |
+| **5** | **Zero Server-Side Fee**      | Runs entirely locally; you only need an `OPENAI_API_KEY`.               |
+| **6** | **Cross-Platform**            | Works on Linux, Windows & macOS (Python ≥ 3.12).                       |
+| **7** | **Verbose Logging**           | One-line log per action; warnings on missing tables, never crashes.     |
+| **8** | **Output Formats**            | Save CSV (default), Parquet or JSON via `--output` flag.               |
 
 ---
 
-## 🚀 Quick Start (30s)
+## 🚀 Quick Start (30 s)
 
 ```bash
-# 1. install package + playwright browsers
-pip install dataspiderai
-playwright install
+# 1. install package + browsers
+uv pip install dataspiderai
+python -m playwright install --with-deps chromium firefox webkit
 
-# 2. snapshot metrics + insiders for Apple
+# 2. one-liner Finviz scrape
 dataspiderai AAPL --metrics --insiders
+
+# 3. patent count
+dataspiderai --patents "Tesla Inc" 2023-03-01 2023-04-02
 ```
 
-Console output:
+**Console example**  
 ```
 2025-06-14 12:00:00 - dataspiderai - INFO - ↳ AAPL – scraping metrics …
 ✓ AAPL – metrics saved
@@ -61,25 +64,61 @@ Console output:
 
 ---
 
-## 🛠️ Installation
+## 🛠️ Installation (step-by-step with `uv`)
 
-```bash
-# stable release
-pip install dataspiderai
+We recommend `uv`—an extremely fast, lock-aware Python package manager and environment tool:
 
-# pre-release
-pip install dataspiderai --pre
-```
+1. **Install `uv`**  
+   ```bash
+   pip install --user uv
+   ```
+   `uv` handles venv creation, dependency resolution and installs in milliseconds.
 
-If Playwright reports missing browsers:
+2. **Clone or install**  
+   - **Clone locally**  
+     ```bash
+     git clone https://github.com/jorvalalb/dataspiderai.git
+     cd dataspiderai
+     ```
+   - **Or install from PyPI**  
+     ```bash
+     uv pip install dataspiderai
+     ```
 
-```bash
-python -m playwright install --with-deps chromium firefox webkit
-```
+3. **Create & activate a venv**  
+   ```bash
+   uv venv create dataspiderai-env
+   dataspiderai-env\Scriptsctivate      # Windows
+   # or: source dataspiderai-env/bin/activate   # macOS/Linux
+   ```
+
+4. **Install dependencies**  
+   ```bash
+   uv sync --active
+   ```
+
+5. **Install Playwright browsers**  
+   ```bash
+   python -m playwright install --with-deps chromium firefox webkit
+   ```
+
+6. **Configure your `.env`**  
+   ```bash
+   echo "OPENAI_API_KEY=your_openai_api_key_here" > .env
+   ```
+
+7. **Verify & run**  
+   ```bash
+   dataspiderai --help
+   ```
+   or  
+   ```bash
+   dataspiderai AAPL --metrics --output parquet
+   ```
 
 ---
 
-## 🔐 .env Configuration
+## 🔐 `.env` Configuration
 
 Create a file named `.env` in the root of your project:
 
@@ -95,35 +134,35 @@ Replace `your_openai_api_key_here` with your actual key. This is required for al
 
 ```text
 ┌────────────────────────────────────────────────────────────────────┐
-│                          CLI / Entry Point                        │
-│            (dataspiderai / dataspiderai.py – CLI module)          │
+│                          CLI / Entry Point                         │
+│            (dataspiderai / dataspiderai.py – CLI module)           │
 └────────────────────────────────────────────────────────────────────┘
           │
           ▼                                ┌────────────────────────┐
-┌────────────────────────┐                 │  Screener Agent       │
+┌────────────────────────┐                 │  Screener Agent        │
 │  Main Orchestrator     │◀───────────────▶│ (screener_agent.py)   │
-│  run_pipeline()        │  <flag --screener>                   │
+│  run_pipeline()        │  <flag --screener>                       │
 └────────────────────────┘                 └────────────────────────┘
           │
           │ without --screener
           ▼
 ┌────────────────────────┐                 ┌────────────────────────┐
 │  Data Agent            │◀───────────────▶│  Storage Handler      │
-│  data_agent.scrape_    │  invoked for    │  (storage_handler.py) │
+│  data_agent.scrape_    │  invoked for    │  (storage_handler.py)  │
 │  company()             │  each ticker/   └────────────────────────┘
 └────────────────────────┘  dataset
           │
           ▼
 ┌────────────────────────┐
-│  Playwright (navigation)│
-│  + BeautifulSoup        │
+│ Playwright (navigation)│
+│ + BeautifulSoup        │
 └────────────────────────┘
           │
           ▼
 ┌────────────────────────┐
 │  LLM Agents (extract_  │
 │    _metrics, _insiders,│
-│    extract_with_llm…)   │
+│    extract_with_llm…)  │
 └────────────────────────┘
 
 CLI `--patents` → `patent_agent.scrape_patents()`
@@ -142,10 +181,11 @@ CLI `--patents` → `patent_agent.scrape_patents()`
 | Category    | Flag(s)                                                                 | Notes                                |
 |-------------|-------------------------------------------------------------------------|--------------------------------------|
 | **Basic**   | `symbols…`                                                              | One or more ticker symbols (`AAPL MSFT …`). |
-| **Patents** | `--patents "QUERY"`<br>`--patents "QUERY" START END`                    | **Exclusive**. Returns Google Patents hit count phrase.<br>Dates in `YYYY-MM-DD`. |
-| **Screener**| `--screener [START [END]]`, `-pg …`                                     | Iterate Finviz screener pages (20 tickers/page). Omit → all pages. |
-| **Filters** | `--exch`, `--idx`, `--sector`, `--industry`, `--country`, `--filters`  | 200+ slugs — list them all with `--filters`. |
-| **Datasets**| `--metrics [TOKENS…]`, `--insiders`, `--info`, `--managers`, `--funds`, `--ratings`, `--news`, `--holdings-bd`, `--top10`, `--income`, `--balance`, `--cash` | Flags are additive. Omit all ⇒ *full sweep*. |
+| **Patents** | `--patents "QUERY"`<br>`--patents "QUERY" START END`                    | Returns Google Patents hit count phrase.<br>Dates in `YYYY-MM-DD`. |
+| **Screener**| `--screener [START [END]]`, `-pg …`                                     | Sweep Finviz screener pages (20 tickers/page). Omit → all pages. |
+| **Filters** | `--exch`, `--idx`, `--sector`, `--industry`, `--country`, `--filters`  | 200+ slugs — list them with `--filters`. |
+| **Datasets**| `--metrics [TOKENS…]`, `--insiders`, `--info`, `--managers`, `--funds`,<br>`--ratings`, `--news`, `--holdings-bd`, `--top10`, `--income`, `--balance`, `--cash` | Flags are additive. Omit all ⇒ *full sweep*. |
+| **Output**  | `--output {csv,parquet,json}`                                           | Choose file format (default: csv).   |
 | **Browser** | `--browser chromium|firefox|webkit`                                      | Default `firefox`.                   |
 | **Help**    | `flag --help`                                                           | Contextual sub-help (e.g. `--metrics --help`). |
 
@@ -155,29 +195,29 @@ CLI `--patents` → `patent_agent.scrape_patents()`
 
 | Flag               | File(s)                          | Description                                                        |
 |--------------------|----------------------------------|--------------------------------------------------------------------|
-| `--metrics`        | `metrics_<SYM>_<ts>.csv`         | 100+ snapshot ratios/indicators. Supports token subset (`p/e peg sma200`). |
-| `--insiders`       | `insiders_…csv`                  | Insider trades with relationship & SEC Form 4 link.               |
-| `--managers`       | `managers_…csv`                  | Top asset-manager holders (% of shares).                          |
-| `--funds`          | `funds_…csv`                     | Top funds/ETFs holders.                                           |
-| `--ratings`        | `ratings_…csv`                   | Date, analyst, rating & price-target changes.                    |
-| `--news`           | `news_…csv`                      | Timestamp, headline, source, URL.                                 |
-| `--income`         | `income_…csv`                    | Annual Income Statement (YoY %).                                  |
-| `--balance`        | `balance_…csv`                   | Annual Balance Sheet (YoY %).                                     |
-| `--cash`           | `cash_…csv`                      | Annual Cash-flow Statement (YoY %).                               |
-| `--holdings-bd`    | `holdings_breakdown_…csv`        | ETF category vs % of assets.                                      |
-| `--top10`          | `top10_holdings_…csv`            | ETF top-10 holdings (name, % weight, sector).                     |
-| `--info`           | `info_…txt` (and printed)        | Plain-text business description.                                  |
+| `--metrics`        | `metrics_<SYM>_<ts>.<ext>`       | 100+ snapshot ratios/indicators. Supports token subset (`p/e sma200`). |
+| `--insiders`       | `insiders_<SYM>_<ts>.<ext>`      | Insider trades with relationship & SEC Form 4 link.               |
+| `--managers`       | `managers_<SYM>_<ts>.<ext>`      | Top asset-manager holders (% of shares).                          |
+| `--funds`          | `funds_<SYM>_<ts>.<ext>`         | Top fund/ETF holders.                                             |
+| `--ratings`        | `ratings_<SYM>_<ts>.<ext>`       | Date, analyst, rating & price-target changes.                     |
+| `--news`           | `news_<SYM>_<ts>.<ext>`          | Timestamp, headline, source, URL.                                  |
+| `--income`         | `income_<SYM>_<ts>.<ext>`        | Annual Income Statement (YoY %).                                   |
+| `--balance`        | `balance_<SYM>_<ts>.<ext>`       | Annual Balance Sheet (YoY %).                                      |
+| `--cash`           | `cash_<SYM>_<ts>.<ext>`          | Annual Cash Flow Statement (YoY %).                                |
+| `--holdings-bd`    | `holdings_breakdown_<SYM>_<ts>.<ext>` | ETF category vs % of assets.                                    |
+| `--top10`          | `top10_holdings_<SYM>_<ts>.<ext>`| ETF top-10 holdings (name, % weight, sector).                      |
+| `--info`           | `info_<SYM>_<ts>.txt` / `.json`  | Plain-text business description (printed on console).             |
 
 ---
 
 ## 🔍 Usage Recipes
 
-### 1 — Single ticker, custom metrics + profile
+### 1 — Single ticker + custom metrics
 ```bash
-dataspiderai GOOG --metrics p/e peg sma50 sma200 --info
+dataspiderai GOOG --metrics p/e peg sma50 sma200
 ```
 
-### 2 — ETF widgets only
+### 2 — ETF widgets
 ```bash
 dataspiderai QQQ --holdings-bd --top10
 ```
@@ -203,17 +243,9 @@ dataspiderai --screener --exch nasd --country europe --income --balance
 dataspiderai --screener 5 8 --industry semiconductors
 ```
 
----
-
-## 🔧 Advanced Playwright Tweaks
-
+### 7 — Save as Parquet instead of CSV
 ```bash
-# run headed Firefox for debugging
-dataspiderai AAPL --metrics --browser firefox
-
-# change default pause & viewport via env vars
-export DATASPIDERAI_PLAYWRIGHT_PAUSE=1.5
-export DATASPIDERAI_VIEWPORT="1440x900"
+dataspiderai AAPL --metrics --output parquet
 ```
 
 ---
@@ -238,16 +270,6 @@ src/dataspiderai/
 
 ---
 
-## 📥 Output Example
-
-```
-data/AAPL/
-├─ metrics_AAPL_2025-06-14_12-03-27.csv
-└─ news_AAPL_2025-06-14_12-03-28.csv
-```
-
----
-
 ## 🤝 Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md).
@@ -263,11 +285,9 @@ MIT © 2025 Jorge Valverde Albelda
   author  = {Jorge Valverde Albelda},
   title   = {dataspiderai: AI-assisted Finviz & Google Patents Scraper},
   year    = {2025},
-  url     = {https://github.com/jorgevalverdealbe/dataspiderai},
+  url     = {https://github.com/jorvalalb/dataspiderai},
   version = {1.0.0}
 }
 ```
-
----
 
 Happy scraping! 🕸️🤖
