@@ -39,20 +39,14 @@ Thank you for your interest in contributing to **dataspiderai**! This document g
    - Add tests for new functionality or bug fixes.  
    - Update documentation (`README.md`, docstrings, CLI help, etc.) as needed.
 
-7. **Run the test suite and linters**  
-   ```bash
-   uv test
-   uv lint
-   ```
-
-8. **Commit and push**  
+7. **Commit and push**  
    ```bash
    git add .
    git commit -m "Brief description of your change"
    git push origin feature/your-feature-name
    ```
 
-9. **Open a Pull Request** on GitHub  
+8. **Open a Pull Request** on GitHub  
    - Link to any relevant issues.  
    - Describe what you’ve changed and why.  
    - Ensure CI passes and that you’ve updated docs/tests.
