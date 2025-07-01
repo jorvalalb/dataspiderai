@@ -5,7 +5,27 @@ All notable changes to **dataspiderai** will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
--->
+## [1.0.0] – 2025-07-01
+
+### Added
+- `--output` flag to select output format (csv, parquet, json).  
+- Environment variable `DATASPIDERAI_OUTPUT_FORMAT` fallback for default format.  
+- Support for Parquet and JSON output in `storage_handler`.  
+- Enhanced README with step-by-step installation using **uv** (fast, lock-aware manager).  
+- Updated `.env` documentation and installation steps.  
+- New `CONTRIBUTING.md` instructions for development with **uv** venv and editable installs.  
+- Contextual inline help for output formats in the CLI reference.
+
+### Changed
+- README reorganized: clarified package description, installation, and usage.  
+- README now emphasizes Finviz as core functionality; patents as optional extra.  
+- Updated CLI reference table to include `--output` flag.  
+- Updated agent architecture diagram to match latest code.  
+
+### Fixed
+- Minor typos in documentation and code examples.  
+
+---
 
 ## [0.1.0] – 2025-05-20
 
@@ -42,4 +62,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-*This is the initial release of dataspiderai. Future versions will document new features, improvements, and bug fixes here!*  
+*This changelog will be updated for future releases.*

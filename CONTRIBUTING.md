@@ -6,50 +6,53 @@ Thank you for your interest in contributing to **dataspiderai**! This document g
 
 1. **Clone the repository**  
    ```bash
-   git clone https://github.com/jorgevalverdealbe/dataspiderai.git
+   git clone https://github.com/jorvalalb/dataspiderai.git
    cd dataspiderai
    ```
 
 2. **Create and activate a development environment**  
-   We recommend using Conda for isolation:
+   We use `uv` to manage environments and dependencies:
    ```bash
-   conda create -n dataspiderai python=3.12
-   conda activate dataspiderai
+   pip install --user uv
+   uv venv create dataspiderai-dev
+   dataspiderai-dev\Scripts\activate      # Windows
    ```
 
-3. **Install dependencies and the package in editable mode**  
-   We use `uv` for project management (not Poetry):
+3. **Install dependencies**  
    ```bash
-   pip install uv
-   uv install
-   uv develop
+   uv sync --active
    ```
 
-4. **Create a feature branch**  
+4. **Install the package in editable mode**  
+   ```bash
+   uv pip install -e .
+   ```
+
+5. **Create a feature branch**  
    ```bash
    git checkout -b feature/your-feature-name
    ```
 
-5. **Make your changes**  
+6. **Make your changes**  
    - Follow existing style and patterns.  
    - Keep your scope narrow and focused.  
    - Add tests for new functionality or bug fixes.  
    - Update documentation (`README.md`, docstrings, CLI help, etc.) as needed.
 
-6. **Run the test suite and linters**  
+7. **Run the test suite and linters**  
    ```bash
    uv test
    uv lint
    ```
 
-7. **Commit and push**  
+8. **Commit and push**  
    ```bash
    git add .
    git commit -m "Brief description of your change"
    git push origin feature/your-feature-name
    ```
 
-8. **Open a Pull Request** on GitHub  
+9. **Open a Pull Request** on GitHub  
    - Link to any relevant issues.  
    - Describe what you’ve changed and why.  
    - Ensure CI passes and that you’ve updated docs/tests.
@@ -96,4 +99,4 @@ This project follows the [Contributor Covenant Code of Conduct](CODE_OF_CONDUCT.
 
 ---
 
-Thank you for helping make **dataspiderai** even better! 🚀  
+Thank you for helping make **dataspiderai** even better! 🚀
