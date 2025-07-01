@@ -41,27 +41,6 @@ Everything is saved _incrementally_—as soon as a section is scraped, it’s fl
 
 ---
 
-## 🚀 Quick Start (30 s)
-
-```bash
-# 1. install package + browsers
-uv pip install dataspiderai
-python -m playwright install --with-deps chromium firefox webkit
-
-# 2. one-liner Finviz scrape
-dataspiderai AAPL --metrics --insiders
-
-# 3. patent count
-dataspiderai --patents "Tesla Inc" 2023-03-01 2023-04-02
-```
-
-**Console example**  
-```
-2025-06-14 12:00:00 - dataspiderai - INFO - ↳ AAPL – scraping metrics …
-✓ AAPL – metrics saved
-✓ AAPL – insiders saved
-```
-
 ---
 
 ## 🛠️ Installation (step-by-step with `uv`)
@@ -70,7 +49,7 @@ We recommend `uv`—an extremely fast, lock-aware Python package manager and env
 
 1. **Install `uv`**  
    ```bash
-   pip install --user uv
+   pip install uv
    ```
    `uv` handles venv creation, dependency resolution and installs in milliseconds.
 
@@ -88,8 +67,7 @@ We recommend `uv`—an extremely fast, lock-aware Python package manager and env
 3. **Create & activate a venv**  
    ```bash
    uv venv create dataspiderai-env
-   dataspiderai-env\Scriptsctivate      # Windows
-   # or: source dataspiderai-env/bin/activate   # macOS/Linux
+   dataspiderai-env\Scripts\activate      # Windows
    ```
 
 4. **Install dependencies**  
@@ -186,7 +164,7 @@ CLI `--patents` → `patent_agent.scrape_patents()`
 | **Filters** | `--exch`, `--idx`, `--sector`, `--industry`, `--country`, `--filters`  | 200+ slugs — list them with `--filters`. |
 | **Datasets**| `--metrics [TOKENS…]`, `--insiders`, `--info`, `--managers`, `--funds`,<br>`--ratings`, `--news`, `--holdings-bd`, `--top10`, `--income`, `--balance`, `--cash` | Flags are additive. Omit all ⇒ *full sweep*. |
 | **Output**  | `--output {csv,parquet,json}`                                           | Choose file format (default: csv).   |
-| **Browser** | `--browser chromium|firefox|webkit`                                      | Default `firefox`.                   |
+| **Browser** | `--browser {firefox,chromium,webkit}`                                      | Default `firefox`.                   |
 | **Help**    | `flag --help`                                                           | Contextual sub-help (e.g. `--metrics --help`). |
 
 ---
@@ -279,6 +257,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md).
 ## 📜 License & Citation
 
 MIT © 2025 Jorge Valverde Albelda
+See [LICENSE.md](LICENSE.md).
 
 ```bibtex
 @software{valverde2025dataspiderai,
