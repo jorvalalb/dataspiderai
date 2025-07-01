@@ -257,7 +257,6 @@ See [CONTRIBUTING.md](CONTRIBUTING.md).
 ## 📜 License & Citation
 
 MIT © 2025 Jorge Valverde Albelda
-See [LICENSE.md](LICENSE.md).
 
 ```bibtex
 @software{valverde2025dataspiderai,
