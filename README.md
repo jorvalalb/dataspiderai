@@ -66,7 +66,7 @@ We recommend `uv`—an extremely fast, lock-aware Python package manager and env
 
 3. **Create & activate a venv**  
    ```bash
-   uv venv create dataspiderai-env
+   uv venv dataspiderai-env
    dataspiderai-env\Scripts\activate      # Windows
    ```
 

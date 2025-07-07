@@ -103,7 +103,8 @@ celerybeat.pid
 
 # Environments
 .env
-.venv
+dataspiderai-env/
+.venv/
 env/
 venv/
 ENV/
