@@ -129,7 +129,7 @@ async def scrape_screener_pages(
     """Sweep screener pages and scrape each ticker with the supplied flags."""
     filter_codes = _translate_filters(exch, idx, sector, industry, country)
     logger.info(
-        "[Screener] Sweeping pages %d–%d | filters=%s",
+        "[Screener] Sweeping pages| filters=%s",
         start_page, end_page, ",".join(filter_codes) or "—"
     )
 
