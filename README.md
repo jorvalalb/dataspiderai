@@ -5,10 +5,6 @@
 [![GitHub Stars](https://img.shields.io/github/stars/jorvalalb/dataspiderai?style=social)](https://github.com/jorvalalb/dataspiderai/stargazers)
 [![GitHub Forks](https://img.shields.io/github/forks/jorvalalb/dataspiderai?style=social)](https://github.com/jorvalalb/dataspiderai/forks)
 
-[![PyPI version](https://badge.fury.io/py/dataspiderai.svg)](https://pypi.org/project/dataspiderai/)
-[![Python Versions](https://img.shields.io/pypi/pyversions/dataspiderai)](https://pypi.org/project/dataspiderai/)
-[![Downloads](https://static.pepy.tech/badge/dataspiderai/month)](https://pepy.tech/project/dataspiderai)
-
 [![License](https://img.shields.io/github/license/jorvalalb/dataspiderai)](LICENSE)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![Security: bandit](https://img.shields.io/badge/security-bandit-yellow.svg)](https://github.com/PyCQA/bandit)
@@ -53,16 +49,11 @@ We recommend `uv`—an extremely fast, lock-aware Python package manager and env
    ```
    `uv` handles venv creation, dependency resolution and installs in milliseconds.
 
-2. **Clone or install**  
-   - **Clone locally**  
-     ```bash
-     git clone https://github.com/jorvalalb/dataspiderai.git
-     cd dataspiderai
-     ```
-   - **Or install from PyPI**  
-     ```bash
-     uv pip install dataspiderai
-     ```
+2. **Clone locally**   
+   ```bash
+   git clone https://github.com/jorvalalb/dataspiderai.git
+   cd dataspiderai
+   ```
 
 3. **Create & activate a venv**  
    ```bash
