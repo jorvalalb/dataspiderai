@@ -73,12 +73,10 @@ async def extract_with_llm(
     reply = await llm.ainvoke(prompt)
     text  = reply.content or ""
 
-    # ── prefer an explicit ```json …``` fence ──────────────────────────────
     fenced = re.search(r"```json\s*([\s\S]*?)```", text, flags=re.I)
     if fenced:
         return fenced.group(1).strip()
 
-    # ── fallback: first {...} pair in the response ─────────────────────────
     start, end = text.find("{"), text.rfind("}")
     if 0 <= start < end:
         return text[start : end + 1].strip()
